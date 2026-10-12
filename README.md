@@ -1,1 +1,1 @@
-Daje Lorenzo Rovigatti, sei tutti noi!
+Daje Lorenzo, sei tutti noi!
