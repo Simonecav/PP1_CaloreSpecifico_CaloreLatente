@@ -29,7 +29,6 @@ t_g = np.array(dati["t_g"])
 t_a = np.array(dati["t_a"])
 t_f = np.array(dati["t_f"])
 
-
 d_m_e = 5
 d_m = 0.1
 d_t = 0.2
@@ -44,22 +43,25 @@ d_M_2 = d_m
 d_T_1 = d_t*np.sqrt(2)
 d_T_2 = d_t*np.sqrt(2)
 
+cov1_2 = np.mean(c_a*(M_1/M_2)*DT_1 * DT_2) - np.mean((M_1/M_2)*DT_1)*np.mean(DT_2)
+print(f"cov: {cov1_2}")
+
 ni_M_1 = d_M_1/M_1
 ni_M_2 = d_M_2/M_2
 ni_T_1 = d_T_1/DT_1
-ni_T_2 = d_T_2/DT_2
 
-
-cl = (c_a/M_2) * (M_1*DT_1 - M_2*DT_2) * (DT_1 / DT_2)
-d_cl = cl*np.sqrt(ni_M_1**2 + ni_M_2**2 + ni_T_1**2 + ni_T_2**2)
+cl = c_a * ((M_1/M_2)*DT_1 - DT_2)
+d_cl = c_a*np.sqrt((((M_1/M_2)*DT_1)**2 * (ni_M_1**2 + ni_M_2**2 + ni_T_1**2))  + d_T_2**2)
 
 print(pd.DataFrame(dati).to_latex())
 
 print(pd.DataFrame({
-    "c": cl
+    "cl": cl
 }).to_latex())
 
 print(pd.DataFrame({
-    "c": cl,
-    "dc": d_cl,
+    "cl": cl,
+    "dcl": d_cl,
 }))
+
+print(np.std(cl, ddof=1))
